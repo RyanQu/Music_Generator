@@ -7,18 +7,6 @@ import sys
 import os
 from pydub import *
  
-def read_wav(wav_file):
-    """Returns two chunks of sound data from wave file."""
-    w = wave.open(wav_file)
-    n = 60 * 10000
-    if w.getnframes() < n * 2:
-        raise ValueError('Wave file too short')
-    frames = w.readframes(n)
-    wav_data1 = struct.unpack('%dh' % n, frames)
-    frames = w.readframes(n)
-    wav_data2 = struct.unpack('%dh' % n, frames)
-    return wav_data1, wav_data2
- 
 def compute_chunk_features(mp3_file):
     """Return feature vectors for two chunks of an MP3 file."""
     # Extract MP3 file to a mono, 10kHz WAV file
