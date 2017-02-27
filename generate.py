@@ -12,8 +12,8 @@ t = numpy.arange(sample)
 t = t/sample # scale each element for normalization
 song = numpy.array([])
 for freq in doremi:
- wav = numpy.sin(2*numpy.pi*freq*t)*amplitude
- song = numpy.concatenate([song, wav])
+    wav = numpy.sin(2*numpy.pi*freq*t)*amplitude
+    song = numpy.concatenate([song, wav])
 scipy.io.wavfile.write('doremi.wav', sampling_rate, song.astype(numpy.int16))
 matplotlib.pyplot.specgram(song) # generate spectogram
 matplotlib.pyplot.savefig('doremi.png')
