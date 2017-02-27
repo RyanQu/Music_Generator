@@ -1,15 +1,19 @@
 import numpy
 import scipy.io.wavfile
 import matplotlib.pyplot
+import random
 
-doremi = [523.0, 587.0, 659.0, 698.0, 784.0, 1035.0, 1200.0] # C,D,E,F,G or Do,Re,Mi,Fa,So
+doremi = [523.0, 587.0, 659.0, 698.0, 784.0] # C,D,E,F,G or Do,Re,Mi,Fa,So
+for i in range(5,60):
+    doremi.append(200+random.random()*1000)
+
 NFFT = 1024       # the length of the windowing segments
 dt = 0.0005
 Fs = int(1.0/dt)  # the sampling frequency
 
 amplitude = 65536.0/4.0
 sampling_rate = 44100.0 # sampling rate
-duration = 0.5 # 0.5 seconds
+duration = 0.15 # 0.5 seconds
 sample = sampling_rate * duration
 t = numpy.arange(sample) 
 t = t/sample # scale each element for normalization
