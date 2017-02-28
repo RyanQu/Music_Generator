@@ -21,7 +21,7 @@ def read_wav(wav_file):
     nchannels, sampwidth, framerate, nframes = params[:4]
     print nchannels, sampwidth, framerate, nframes
 
-    n=nframes
+    n=nframes/2
     print n
 
     str_data = w.readframes(n)

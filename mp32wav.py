@@ -12,7 +12,7 @@ def compute_chunk_features(mp3_file):
     # Extract MP3 file to a mono, 10kHz WAV file
     song = AudioSegment.from_mp3(mp3_file)
     db = song.dBFS
-    song.export('temp.wav', format="wav")
+    song.export('%s.wav' %mp3_file, format="wav")
 
     # We'll cover how the features are computed in the next section!
     return db
