@@ -1,12 +1,18 @@
 import subprocess
 import wave
 import struct
+import scipy
 import numpy as np
 import pylab as pl
 import csv
 import os
+import matplotlib.pyplot
 from pydub import *
- 
+
+NFFT = 1024       # the length of the windowing segments
+dt = 0.001
+Fs = int(1.0/dt)  # the sampling frequency
+
 def read_wav(wav_file):
     """Returns two chunks of sound data from wave file."""
     w = wave.open(wav_file)
@@ -15,7 +21,7 @@ def read_wav(wav_file):
     nchannels, sampwidth, framerate, nframes = params[:4]
     print nchannels, sampwidth, framerate, nframes
 
-    n=5*framerate
+    n=nframes
     print n
 
     str_data = w.readframes(n)
@@ -31,7 +37,13 @@ def read_wav(wav_file):
     pl.subplot(212)
     pl.plot(time, wav_data[1], c="g")
     pl.xlabel("time (seconds)")
-    pl.show()
+    pl.savefig('%s_pylab.png' %wav_file)
+
+    matplotlib.pyplot.specgram(wav_data[0], NFFT=NFFT, Fs=Fs, noverlap=900) # generate spectogram
+    matplotlib.pyplot.savefig('%s_1.png' %wav_file)
+
+    matplotlib.pyplot.specgram(wav_data[1], NFFT=NFFT, Fs=Fs, noverlap=900) # generate spectogram
+    matplotlib.pyplot.savefig('%s_2.png' %wav_file)
 
     return wav_data
 
