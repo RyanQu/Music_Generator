@@ -10,17 +10,21 @@ from pydub import *
 def read_wav(wav_file):
     """Returns two chunks of sound data from wave file."""
     w = wave.open(wav_file)
-    n = 60 * 10000
     params = w.getparams()
+    print params
     nchannels, sampwidth, framerate, nframes = params[:4]
+    print nchannels, sampwidth, framerate, nframes
 
-    str_data = w.readframes(nframes)
+    n=5*framerate
+    print n
+
+    str_data = w.readframes(n)
     w.close()
 
     wav_data = np.fromstring(str_data, dtype=np.short)
     wav_data.shape = -1, 2
     wav_data = wav_data.T
-    time = np.arange(0, nframes) * (1.0 / framerate)
+    time = np.arange(0, n) * (1.0 / framerate)
 
     pl.subplot(211)
     pl.plot(time, wav_data[0])
