@@ -32,6 +32,7 @@ def read_wav(wav_file):
     wav_data = wav_data.T
     time = np.arange(0, n) * (1.0 / framerate)
 
+    pl.figure()
     pl.subplot(211)
     pl.plot(time, wav_data[0])
     pl.subplot(212)
@@ -39,9 +40,11 @@ def read_wav(wav_file):
     pl.xlabel("time (seconds)")
     pl.savefig('%s_pylab.png' %wav_file)
 
+    matplotlib.pyplot.figure()
     matplotlib.pyplot.specgram(wav_data[0], NFFT=NFFT, Fs=Fs, noverlap=900) # generate spectogram
     matplotlib.pyplot.savefig('%s_1.png' %wav_file)
 
+    matplotlib.pyplot.figure()
     matplotlib.pyplot.specgram(wav_data[1], NFFT=NFFT, Fs=Fs, noverlap=900) # generate spectogram
     matplotlib.pyplot.savefig('%s_2.png' %wav_file)
 
