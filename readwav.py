@@ -16,6 +16,12 @@ import hashlib
 from operator import itemgetter
 from pydub import *
 
+import sys
+
+#Set Default Encoding to utf-8. Escaping from the encoding error of python shell.
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 NFFT = 1024       # the length of the windowing segments
 dt = 0.001
 Fs = int(1.0/dt)  # the sampling frequency
@@ -46,18 +52,22 @@ def read_wav(wav_file):
     nchannels, sampwidth, framerate, nframes = params[:4]
     print nchannels, sampwidth, framerate, nframes
 
-    n=60*framerate
+    n=1*framerate
     print n
 
     str_data = w.readframes(n)
-    print len(str_data)
-    str_data = w.readframes(nframes)
     print len(str_data)
     w.close()
 
     wav_data = np.fromstring(str_data, dtype=np.short)
     wav_data.shape = -1, 2
     wav_data = wav_data.T
+
+    f = open('test.txt','w')
+    print >> f,str(str_data)
+    # print >> f,'\n'
+    # print >> f,str(wav_data)
+    f.close()
 
     return wav_data, n, params
 
