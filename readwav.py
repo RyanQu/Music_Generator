@@ -35,7 +35,7 @@ DEFAULT_AMP_MIN = 10
 # Number of cells around an amplitude peak in the spectrogram in order
 # for Dejavu to consider it a spectral peak. Higher values mean less
 # fingerprints and faster matching, but can potentially affect accuracy.
-PEAK_NEIGHBORHOOD_SIZE = 20
+PEAK_NEIGHBORHOOD_SIZE = 200
 
 
 def read_wav(wav_file):
@@ -123,9 +123,9 @@ def get_2D_peaks(arr2D, plot=False, amp_min=DEFAULT_AMP_MIN):
         ax.set_xlabel('Time')
         ax.set_ylabel('Frequency')
         ax.set_title("Spectrogram")
-        ax.axis('scaled')
+        ax.axis('normal')
         plt.gca().invert_yaxis()
-        plt.savefig('_peak.png')
+        plt.savefig('200_peak.png')
 
     return zip(frequency_idx, time_idx)
 
