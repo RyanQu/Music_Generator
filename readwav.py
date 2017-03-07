@@ -46,7 +46,7 @@ def read_wav(wav_file):
     nchannels, sampwidth, framerate, nframes = params[:4]
     print nchannels, sampwidth, framerate, nframes
 
-    n=nframes/2
+    n=60*framerate
     print n
 
     str_data = w.readframes(n)
@@ -73,7 +73,7 @@ def spectrum(wav_data, n, params, fan_value=DEFAULT_FAN_VALUE,
         pl.savefig('%s_pylab.png' %wav_file)
 
     plt.figure()
-    arr2D = plt.specgram(wav_data[0], NFFT=NFFT, Fs=Fs, noverlap=900)[0] # generate spectogram
+    arr2D = plt.specgram(wav_data[0], NFFT=NFFT, Fs=Fs, window=mlab.window_hanning, noverlap=900)[0] # generate spectogram
     plt.savefig('%s_k.png' %wav_file)
 
     arr2D = 10 * np.log10(arr2D)
@@ -123,8 +123,9 @@ def get_2D_peaks(arr2D, plot=False, amp_min=DEFAULT_AMP_MIN):
         ax.set_xlabel('Time')
         ax.set_ylabel('Frequency')
         ax.set_title("Spectrogram")
+        ax.axis('scaled')
         plt.gca().invert_yaxis()
-        plt.show()
+        plt.savefig('_peak.png')
 
     return zip(frequency_idx, time_idx)
 
@@ -147,6 +148,6 @@ for path, dirs, files in os.walk('/Users/RyanQu/Documents/Workspace/Git/Music_Ge
 
             print wav_data, n, params
 
-            print spectrum(wav_data, n, params, plot=False)
+            spectrum(wav_data, n, params, plot=False)
         except:
             continue
