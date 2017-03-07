@@ -56,18 +56,21 @@ def read_wav(wav_file):
     print n
 
     str_data = w.readframes(n)
-    print len(str_data)
+    # print len(str_data)
+    # print type(str_data)
+    # print str_data
     w.close()
 
     wav_data = np.fromstring(str_data, dtype=np.short)
     wav_data.shape = -1, 2
     wav_data = wav_data.T
+    print type(wav_data)
 
-    f = open('test.txt','w')
-    print >> f,str(str_data)
+    # f = open('test.txt','w')
+    np.savetxt('test.csv',wav_data.T)
+    # print >> f,str(str_data)
     # print >> f,'\n'
-    # print >> f,str(wav_data)
-    f.close()
+    # f.close()
 
     return wav_data, n, params
 
