@@ -50,6 +50,9 @@ def read_wav(wav_file):
     print n
 
     str_data = w.readframes(n)
+    print len(str_data)
+    str_data = w.readframes(nframes)
+    print len(str_data)
     w.close()
 
     wav_data = np.fromstring(str_data, dtype=np.short)
@@ -148,6 +151,6 @@ for path, dirs, files in os.walk('/Users/RyanQu/Documents/Workspace/Git/Music_Ge
 
             print wav_data, n, params
 
-            spectrum(wav_data, n, params, plot=False)
+            #spectrum(wav_data, n, params, plot=False)
         except:
             continue
